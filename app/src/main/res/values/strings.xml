@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Яндекс.Школа</string>
+    <string name="action_settings">Настройки</string>
+    <string name="artists">Исполнители</string>
+    <string name="download_text">Пожалуйста подождите,\nидет загрузка...</string>
+
+    <string name="text_albums_1">%s альбомов</string>
+    <string name="text_albums_2">%s альбом</string>
+    <string name="text_albums_3">%s альбома</string>
+
+    <string name="text_tracks_1">%s песен</string>
+    <string name="text_tracks_2">%s песня</string>
+    <string name="text_tracks_3">%s песни</string>
+</resources>
