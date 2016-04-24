@@ -19,12 +19,6 @@ public class ArtistLab {
     private ArtistLab(Context appContext) {
         mAppContext = appContext;
         mArtists = new ArrayList<>();
-        //ArtistsJSONSerializer serializer = ArtistsJSONSerializer.get(appContext);
-        //mArtists = serializer.loadArtistsList();
-        //projectsJSONSerializer = ProjectsJSONSerializer.get(appContext);
-
-        //loadProjectsFromJSON();
-        //generateTestData();
     }
 
     public static ArtistLab get(Context c) {
@@ -34,6 +28,11 @@ public class ArtistLab {
         return sArtistLab;
     }
 
+    /***
+     * Обрабатывает загруженную строку JSON и наполняет список артистов.
+     * @param jsonString JSON строка
+     * @return Список артистов
+     */
     public ArrayList<Artist> parseJson(String jsonString){
         try {
             JSONArray array = (JSONArray) new JSONTokener(jsonString)
@@ -52,6 +51,11 @@ public class ArtistLab {
         return mArtists;
     }
 
+    /***
+     * Возвращает артиста {@link Artist} по его ID
+     * @param ID ID искомого артиста
+     * @return Артист {@link Artist}
+     */
     public Artist getArtistByID(int ID){
         for (Artist artist : mArtists){
             if (artist.getID() == ID){

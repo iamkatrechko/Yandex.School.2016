@@ -11,9 +11,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by Muxa on 07.04.2016.
- */
 public class ArtistInfoFragment extends Fragment {
     private int ID;
 
@@ -31,39 +28,40 @@ public class ArtistInfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         setRetainInstance(true);
-        //lab = ProjectLab.get(getActivity());
 
-        ID = getArguments().getInt("ID");
+        ID = getArguments().getInt("ID");                                                           //Получаем ID артиста из передаваемых данных
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_artist_info, parent, false);
 
-        Artist artist = ArtistLab.get(getActivity()).getArtistByID(ID);
-        ((CollapsingToolbarLayout) getActivity().findViewById(R.id.collapsing_toolbar)).setTitle(artist.getName());
+        Artist artist = ArtistLab.get(getActivity()).getArtistByID(ID);                             //Получаем экземпляр артиста
+        ((CollapsingToolbarLayout) getActivity().findViewById(R.id.collapsing_toolbar)).            //Устанавливаем название активности
+                setTitle(artist.getName());
 
-        ImageView artistImage = (ImageView) getActivity().findViewById(R.id.ivCover);
+        ImageView artistImage = (ImageView) getActivity().findViewById(R.id.ivCover);               //Находим виджеты на экране по их id
         TextView tvGenres = (TextView) v.findViewById(R.id.tvGenres);
         TextView tvAlbums = (TextView) v.findViewById(R.id.tvAlbums);
         TextView tvTracks = (TextView) v.findViewById(R.id.tvTracks);
         TextView tvDescription = (TextView) v.findViewById(R.id.tvDescription);
 
-        String genres = "";
-        for (int i = 0; i < artist.getGenres().length; i++){
-            genres += artist.getGenres()[i];
-            if (i != artist.getGenres().length - 1) genres += ", ";
-        }
-        tvGenres.setText(genres);
+        String genres = "";                                                                         //Связываем список жанров в 1 строку
+        for (int i = 0; i < artist.getGenres().length; i++){                                        //
+            genres += artist.getGenres()[i];                                                        //
+            if (i != artist.getGenres().length - 1) genres += ", ";                                 //
+        }                                                                                           //
+        tvGenres.setText(genres);                                                                   //Вывод информации о жанрах
 
-        String albumsText = "";
-        int remainder_10 = artist.getAlbums() % 10;
+        String albumsText = "";                                                                     //Склоняем падеж для вывода количества альбомов
+        int remainder_10 = artist.getAlbums() % 10;                                                 //путем сравнения остатков от деления на 10 и 100
         int remainder_100 = artist.getAlbums() % 100;
         if (remainder_100 >= 11 && remainder_100 <= 14) albumsText = getString(R.string.text_albums_1, artist.getAlbums());
         else if (remainder_10 == 1) albumsText = getString(R.string.text_albums_2, artist.getAlbums());
         else if (remainder_10 >= 2 && remainder_10 <= 4) albumsText = getString(R.string.text_albums_3, artist.getAlbums());
         else albumsText = getString(R.string.text_albums_1, artist.getAlbums());
-        tvAlbums.setText(albumsText);
+
+        tvAlbums.setText(albumsText);                                                               //Вывод количества альбомов
 
         String tracksText = "";
         int remainder_t_10 = artist.getTracks() % 10;
@@ -72,13 +70,14 @@ public class ArtistInfoFragment extends Fragment {
         else if (remainder_t_10 == 1) tracksText = getString(R.string.text_tracks_2, artist.getTracks());
         else if (remainder_t_10 >= 2 && remainder_t_10 <= 4) tracksText = getString(R.string.text_tracks_3, artist.getTracks());
         else tracksText = getString(R.string.text_tracks_1, artist.getTracks());
-        tvTracks.setText(tracksText);
 
-        tvDescription.setText(artist.getDescription());
+        tvTracks.setText(tracksText);                                                               //Вывод количества треков
 
-        Picasso.with(getActivity())
-                .load(artist.getCoverBig())
-                .into(artistImage);
+        tvDescription.setText(artist.getDescription());                                             //Вывод биографии
+
+        Picasso.with(getActivity())                                                                 //Используем библиотеку Picasso
+                .load(artist.getCoverBig())                                                         //для асинхронной загрузки изображения артиста,
+                .into(artistImage);                                                                 //которое отобразится по окончанию загрузки
 
         return v;
     }

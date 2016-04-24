@@ -3,6 +3,7 @@
     <string name="action_settings">Настройки</string>
     <string name="artists">Исполнители</string>
     <string name="download_text">Пожалуйста подождите,\nидет загрузка...</string>
+    <string name="download_error_text">Ошибка загрузки</string>
 
     <string name="text_albums_1">%s альбомов</string>
     <string name="text_albums_2">%s альбом</string>
